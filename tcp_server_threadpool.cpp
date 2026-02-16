@@ -3,11 +3,16 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+#include <chrono>
 #include <condition_variable>
 #include <cstring>
+#include <ctime>
+#include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <mutex>
 #include <queue>
+#include <sstream>
 #include <string>
 #include <thread>
 #include <vector>
@@ -54,6 +59,7 @@ private:
         char buffer[1024];
         memset(buffer, 0, sizeof(buffer));
         int bytes = read(client_fd, buffer, sizeof(buffer) - 1);
+
         if (bytes > 0) {
             std::string msg(buffer);
             if (!msg.empty() && (msg.back() == '\n' || msg.back() == '\r'))
@@ -64,8 +70,45 @@ private:
                 char last = msg.back();
                 for (char c : msg) if (c == last) count++;
             }
-            std::string resp = std::to_string(count) + "\n";
-            send(client_fd, resp.c_str(), resp.size(), 0);
+
+            //fecha y hora
+            auto now = std::chrono::system_clock::now();
+            auto in_time_t = std::chrono::system_clock::to_time_t(now);
+            std::stringstream datetime_ss;
+            datetime_ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %H:%M:%S");
+            std::string datetime = datetime_ss.str();
+
+            // Determinar si es par o impar
+            std::string par_impar = (count % 2 == 0) ? "No" : "Si";
+
+            // consola
+            std::cout << "\n[Thread " << std::this_thread::get_id()
+                      << "] " << std::endl;
+            std::cout << "Mensaje recibido: \"" << msg << "\"" << std::endl;
+            std::cout << "Último carácter: '" << msg.back() << "'" << std::endl;
+            std::cout << "Apariciones: " << count << " (" << par_impar << ")" << std::endl;
+
+            // Persistencia
+            {
+                static std::mutex file_mtx;
+                std::lock_guard<std::mutex> file_lock(file_mtx);
+
+                std::ofstream log_file("requests_log.txt", std::ios::app);
+                if (log_file.is_open()) {
+                    log_file << datetime << ", "
+                             << msg << ", "
+                             << count << ", "
+                             << par_impar << std::endl;
+                    log_file.close();
+                } else {
+                    std::cerr << "Error: No se pudo abrir el archivo de log" << std::endl;
+                }
+            }
+
+            // Respuesta al cliente
+            std::string respuesta = std::to_string(count) +
+                                   ", (" + par_impar + ")\n";
+            send(client_fd, respuesta.c_str(), respuesta.length(), 0);
         }
         close(client_fd);
     }
@@ -79,7 +122,7 @@ private:
 
 int main(int argc, char* argv[]) {
     const int PORT = 5050;
-    size_t THREADS = 4; // default
+    size_t THREADS = 4;
 
     if (argc >= 2) {
         THREADS = std::stoul(argv[1]);
@@ -115,6 +158,7 @@ int main(int argc, char* argv[]) {
 
     std::cout << "Thread pool server listening on port " << PORT
               << " with " << THREADS << " workers...\n";
+    std::cout << "Logs will be saved to: requests_log.txt\n" << std::endl;
 
     ThreadPool pool(THREADS);
 
