@@ -1,6 +1,7 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
+#include <sys/syscall.h>
 #include <unistd.h>
 
 #include <chrono>
@@ -55,7 +56,21 @@ public:
     }
 
 private:
+    // Función para verificar si un número es primo
+    static bool es_primo(int num) {
+        if (num <= 1) return false;
+        if (num == 2) return true;
+        if (num % 2 == 0) return false;
+
+        for (int i = 3; i * i <= num; i += 2) {
+            if (num % i == 0) return false;
+        }
+        return true;
+    }
+
     static void handle_client(int client_fd) {
+        // Obtiene el TID real del kernel
+        pid_t tid = syscall(SYS_gettid);
         char buffer[1024];
         memset(buffer, 0, sizeof(buffer));
         int bytes = read(client_fd, buffer, sizeof(buffer) - 1);
@@ -78,15 +93,14 @@ private:
             datetime_ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %H:%M:%S");
             std::string datetime = datetime_ss.str();
 
-            // Determinar si es par o impar
-            std::string par_impar = (count % 2 == 0) ? "No" : "Si";
+            // Determinar si el count es primo
+            std::string es_primo_str = es_primo(count) ? "Si" : "No";
 
             // consola
-            std::cout << "\n[Thread " << std::this_thread::get_id()
-                      << "] " << std::endl;
+            std::cout << "\n[Thread: " << tid << "]" << std::endl;
             std::cout << "Mensaje recibido: \"" << msg << "\"" << std::endl;
             std::cout << "Último carácter: '" << msg.back() << "'" << std::endl;
-            std::cout << "Apariciones: " << count << " (" << par_impar << ")" << std::endl;
+            std::cout << "Apariciones: " << count << " (Primo: " << es_primo_str << ")" << std::endl;
 
             // Persistencia
             {
@@ -98,7 +112,7 @@ private:
                     log_file << datetime << ", "
                              << msg << ", "
                              << count << ", "
-                             << par_impar << std::endl;
+                             << es_primo_str << std::endl;
                     log_file.close();
                 } else {
                     std::cerr << "Error: No se pudo abrir el archivo de log" << std::endl;
@@ -107,7 +121,7 @@ private:
 
             // Respuesta al cliente
             std::string respuesta = std::to_string(count) +
-                                   ", (" + par_impar + ")\n";
+                                   ", " + es_primo_str + "\n";
             send(client_fd, respuesta.c_str(), respuesta.length(), 0);
         }
         close(client_fd);

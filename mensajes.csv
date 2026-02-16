@@ -1,0 +1,107 @@
+mensaje
+Hola mundo como estas hoy
+La programacion es divertida y desafiante
+Los sistemas operativos son fascinantes
+El clima esta muy agradable esta tarde
+Me encanta programar en C++ y Python
+Las redes de computadoras son complejas
+La inteligencia artificial avanza rapidamente
+Los algoritmos de ordenamiento son eficientes
+El desarrollo web requiere muchas habilidades
+Las bases de datos relacionales son potentes
+La seguridad informatica es muy importante
+Los protocolos TCP IP permiten la comunicacion
+El aprendizaje automatico transforma industrias
+Las estructuras de datos optimizan programas
+Los servidores manejan multiples peticiones
+La concurrencia mejora el rendimiento general
+Los hilos permiten ejecutar tareas paralelas
+El balanceo de carga distribuye el trabajo
+Las colas de mensajes facilitan la comunicacion
+Los semaforos controlan el acceso compartido
+La sincronizacion evita condiciones de carrera
+Los mutex protegen recursos criticos del sistema
+Las variables atomicas garantizan operaciones seguras
+El pooling de conexiones reduce overhead
+Los caches mejoran significativamente el desempeño
+La latencia de red afecta los tiempos de respuesta
+El throughput mide la capacidad del sistema
+Los timeouts previenen bloqueos indefinidos
+La compresion reduce el tamaño de los datos
+El cifrado protege informacion sensible
+Los certificados SSL aseguran conexiones web
+Las firmas digitales verifican autenticidad
+Los tokens JWT permiten autenticacion stateless
+Las APIs REST facilitan integracion entre sistemas
+GraphQL optimiza consultas de datos complejos
+Los microservicios desacoplan componentes del sistema
+Docker simplifica el despliegue de aplicaciones
+Kubernetes orquesta contenedores en produccion
+Los logs ayudan a diagnosticar problemas
+El monitoreo detecta anomalias en tiempo real
+Las metricas revelan cuellos de botella
+Los dashboards visualizan estado del sistema
+Las alertas notifican incidentes criticos
+La escalabilidad horizontal añade mas nodos
+El sharding distribuye datos entre servidores
+La replicacion mejora disponibilidad y redundancia
+Los backups protegen contra perdida de datos
+La recuperacion ante desastres es esencial
+Los planes de contingencia minimizan el impacto
+Las pruebas de carga validan el rendimiento
+El profiling identifica codigo ineficiente
+La optimizacion prematura es la raiz del mal
+El clean code mejora mantenibilidad a largo plazo
+Los code reviews atrapan bugs antes de produccion
+La integracion continua acelera el desarrollo
+El deployment continuo automatiza entregas
+Los feature flags permiten activar funcionalidades
+Los canary deployments reducen riesgos en produccion
+El blue green deployment facilita rollbacks rapidos
+La observabilidad proporciona visibilidad completa
+Los traces distribuidos rastrean peticiones entre servicios
+Las metricas de negocio miden impacto real
+El SLA define niveles de servicio acordados
+El SLO establece objetivos internos medibles
+El SLI son indicadores que miden calidad
+El error budget equilibra velocidad y estabilidad
+La deuda tecnica se acumula con el tiempo
+El refactoring mejora diseño sin cambiar comportamiento
+Los patrones de diseño resuelven problemas comunes
+SOLID son principios fundamentales de OOP
+DRY evita duplicacion innecesaria de codigo
+KISS mantiene soluciones simples y directas
+YAGNI previene sobreingenieria prematura
+La composicion es mejor que herencia profunda
+El polimorfismo permite abstracciones poderosas
+La encapsulacion oculta detalles de implementacion
+La cohesion agrupa responsabilidades relacionadas
+El acoplamiento bajo facilita cambios futuros
+La inyeccion de dependencias mejora testabilidad
+Los mocks simulan componentes externos en tests
+Los stubs proporcionan respuestas predefinidas
+El TDD guia diseño mediante tests primero
+El BDD describe comportamiento en lenguaje natural
+Las pruebas de regresion detectan bugs nuevos
+La cobertura de codigo mide exhaustividad de tests
+Las pruebas E2E validan flujos completos
+Las pruebas de integracion verifican interacciones
+Las pruebas unitarias validan componentes aislados
+El fuzzing descubre vulnerabilidades de seguridad
+Los exploits aprovechan debilidades del sistema
+Las inyecciones SQL comprometen bases de datos
+El XSS ejecuta scripts maliciosos en navegadores
+El CSRF engaña usuarios autenticados legalmente
+Los ataques DDoS saturan recursos del servidor
+El rate limiting protege contra abuso
+La autenticacion verifica identidad del usuario
+La autorizacion controla permisos de acceso
+El principio de minimo privilegio limita permisos
+La defensa en profundidad usa multiples capas
+El principio zero trust desconfia de todo
+La segmentacion de red aisla componentes criticos
+Los firewalls filtran trafico no autorizado
+Los IDS detectan intrusiones en tiempo real
+Los IPS bloquean ataques automaticamente
+El hardening reduce superficie de ataque
+Las actualizaciones de seguridad parchan vulnerabilidades
